@@ -15,6 +15,9 @@ target_sources(Qd
         include/Qd/Core/Log.h
     INTERFACE
         include/Qd/EntryPoint.h
+        include/Qd/Store/Action.h
+        include/Qd/Store/Reducer.h
+        include/Qd/Store/Store.h
     PRIVATE
         src/Core/Application.cpp
         src/Core/Log.cpp

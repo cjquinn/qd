@@ -8,6 +8,7 @@ namespace Qd {
 };
 
 int main() {
+    Qd::initLogging();
     auto app = Qd::createApplication();
     app->run();
     delete app;
