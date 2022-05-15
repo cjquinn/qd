@@ -4,38 +4,35 @@
 #include <tuple>
 
 namespace Qd {
-    template <class Reducer>
+    template <class ReducerT>
     struct ReducerTrait {
-        typedef typename Reducer::state_t state_t;
+        typedef typename ReducerT::state_t state_t;
     };
 
-    template <class ...Reducers>
+    template <class ...ReducersT>
     class Store {
     public:
-        using State = std::tuple<typename ReducerTrait<Reducers>::state_t ...>;
+        using State = std::tuple<typename ReducerTrait<ReducersT>::state_t ...>;
 
-        explicit Store(const Reducers &... reducers): reducers(reducers...) {}
+        explicit Store(const ReducersT &... reducers): reducers_(reducers...) {}
 
-        Store(const Store&) = delete;
-        Store& operator=(const Store&) = delete;
-
-        template <class State>
-        [[nodiscard]] const State& getState() const {
-            return std::get<State>(state);
+        template <class StateT>
+        [[nodiscard]] const StateT& getState() const {
+            return std::get<StateT>(state);
         }
 
-        template <class Action>
-        void dispatch(const Action& action) {
-            apply(action, std::index_sequence_for<Reducers...>{});
+        template <class ActionT>
+        void dispatch(const ActionT& action) {
+            apply(action, std::index_sequence_for<ReducersT...>{});
         }
 
     private:
-        const std::tuple<Reducers...> reducers;
+        std::tuple<ReducersT...> reducers_;
         State state;
 
-        template <class Action, std::size_t... Is>
-        void apply(const Action& action, std::index_sequence<Is...>) {
-            (std::get<Is>(reducers)(std::get<Is>(state), action), ...);
+        template <class ActionT, std::size_t... Is>
+        void apply(const ActionT& action, std::index_sequence<Is...>) {
+            (std::get<Is>(reducers_)(std::get<Is>(state), action), ...);
         }
     };
 }

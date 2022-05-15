@@ -3,7 +3,7 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-namespace Qd {
+namespace Qd::Core {
     void initLogging() {
         spdlog::stdout_color_mt("app");
         spdlog::stdout_color_mt("core");

@@ -1,15 +1,18 @@
 #pragma once
 
-#include "Qd/Core/Application.h"
+#include <memory>
+
+#include "Qd/Application.h"
 #include "Qd/Core/Log.h"
 
 namespace Qd {
-    Application* createApplication();
+    std::unique_ptr<Qd::Application> createApplication();
 };
 
 int main() {
-    Qd::initLogging();
-    auto app = Qd::createApplication();
-    app->run();
-    delete app;
+    Qd::Core::initLogging();
+    {
+        auto app = Qd::createApplication();
+        app->run();
+    }
 }

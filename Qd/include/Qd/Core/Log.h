@@ -1,8 +1,8 @@
 #pragma once
 
-#include <spdlog/spdlog.h> // IWYU pragma: keep
+#include <spdlog/spdlog.h>
 
-namespace Qd {
+namespace Qd::Core {
     void initLogging();
 }
 
