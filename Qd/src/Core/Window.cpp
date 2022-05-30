@@ -1,7 +1,13 @@
 #include "Core/Window.h"
 
+#include <glad/glad.h>
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
+
 #include "Qd/Core/Assert.h"
 #include "Qd/Core/Log.h"
+#include "Qd/Events/KeyboardEvent.h"
+#include "Qd/Events/MouseEvent.h"
 #include "Qd/Events/WindowEvent.h"
 
 namespace Qd::Core {
@@ -33,6 +39,40 @@ namespace Qd::Core {
         glfwSetWindowCloseCallback(window_, [](GLFWwindow* window) {
             Data& data = *static_cast<Data*>(glfwGetWindowUserPointer(window));
             Events::WindowClosedEvent event{};
+            data.eventCallback(event);
+        });
+
+        glfwSetKeyCallback(window_, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+            Data& data = *static_cast<Data*>(glfwGetWindowUserPointer(window));
+            auto keyCode = static_cast<KeyCode>(key);
+
+            if (action == GLFW_RELEASE) {
+                Events::KeyReleasedEvent event{keyCode};
+                data.eventCallback(event);
+                return;
+            }
+
+            Events::KeyPressedEvent event{keyCode, action == GLFW_REPEAT};
+            data.eventCallback(event);
+        });
+
+        glfwSetMouseButtonCallback(window_, [](GLFWwindow* window, int button, int action, int mods) {
+            Data& data = *static_cast<Data*>(glfwGetWindowUserPointer(window));
+            auto mouseCode = static_cast<MouseCode>(button);
+
+            if (action == GLFW_RELEASE) {
+                Events::MouseButtonReleasedEvent event{mouseCode};
+                data.eventCallback(event);
+                return;
+            }
+
+            Events::MouseButtonPressedEvent event{mouseCode};
+            data.eventCallback(event);
+        });
+
+        glfwSetCursorPosCallback(window_, [](GLFWwindow* window, double x, double y) {
+            Data& data = *static_cast<Data*>(glfwGetWindowUserPointer(window));
+            Events::MouseMovedEvent event{x, y};
             data.eventCallback(event);
         });
     }

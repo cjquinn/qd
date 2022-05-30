@@ -1,10 +1,16 @@
 #pragma once
 
-#include <functional>
+#define QD_EVENT_TYPE(type) static Type getStaticType() { return Type::type; } \
+    [[nodiscard]] inline Type getType() const override { return getStaticType(); }
 
 namespace Qd::Events {
-    enum class EventType {
+    enum class Type {
         None = 0,
+        KeyPressed,
+        KeyReleased,
+        MouseButtonPressed,
+        MouseButtonReleased,
+        MouseMoved,
         WindowClosed,
     };
 
@@ -12,7 +18,7 @@ namespace Qd::Events {
     public:
         virtual ~Event() = default;
 
-        [[nodiscard]] virtual EventType getEventType() const = 0;
+        [[nodiscard]] virtual Type getType() const = 0;
 
         [[nodiscard]] inline bool getIsHandled() const {
             return isHandled_;
@@ -32,7 +38,7 @@ namespace Qd::Events {
 
         template <class EventT, class CallableT>
         bool dispatch(CallableT&& callback) {
-            if (event_.getEventType() == EventT::getStaticEventType()) {
+            if (event_.getType() == EventT::getStaticType()) {
                 callback(static_cast<EventT&>(event_));
                 return true;
             }

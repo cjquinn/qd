@@ -6,6 +6,8 @@ add_executable(Sandbox)
 target_sources(Sandbox
     PRIVATE
         src/Sandbox.cpp
+        src/Layers/SandboxLayer.h
+        src/Layers/SandboxLayer.cpp
 )
 target_compile_features(Qd PUBLIC cxx_std_20)
 
