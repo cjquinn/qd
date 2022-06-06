@@ -3,13 +3,19 @@
 #include <utility>
 
 #include "Qd/Core/Base.h"
-#include "Qd/Core/Log.h"
 #include "Qd/Core/Layer.h"
 #include "Qd/Events/Event.h"
 #include "Qd/Events/WindowEvent.h"
+#include "Qd/Renderer/RenderCommand.h"
 
 #include "Core/LayerStack.h"
 #include "Core/Window.h"
+
+namespace {
+    void handleWindowResized(Qd::Events::WindowResizedEvent &event) {
+        Qd::Renderer::RenderCommand::setViewport(0, 0, event.getWidth(), event.getHeight());
+    }
+}
 
 namespace Qd {
     Application::Application(const std::string& name)
@@ -39,6 +45,7 @@ namespace Qd {
         Events::Dispatcher dispatcher{event};
 
         dispatcher.dispatch<Events::WindowClosedEvent>(QD_BIND(handleWindowClosed));
+        dispatcher.dispatch<Events::WindowResizedEvent>(handleWindowResized);
 
         for (auto it = layerStack_->rbegin(); it != layerStack_->rend(); ++it) {
             if (event.getIsHandled()) {

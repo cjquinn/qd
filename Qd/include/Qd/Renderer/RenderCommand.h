@@ -8,16 +8,15 @@
 namespace Qd::Renderer {
     class VertexArray;
 
-    class RenderCommand {
-    public:
-        static void init();
+    namespace RenderCommand {
+        void init();
 
-        static void setViewport(int32_t x, int32_t y, int32_t width, int32_t height);
+        void setViewport(int32_t x, int32_t y, int32_t width, int32_t height);
 
-        static void setClearColor(const glm::vec4& color);
+        void setClearColor(const glm::vec4& color);
 
-        static void clear();
+        void clear();
 
-        static void draw(const VertexArray& vertexArray, int32_t count = 0);
-    };
+        void draw(const VertexArray& vertexArray, int32_t count = 0);
+    }
 }

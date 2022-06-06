@@ -39,8 +39,8 @@ namespace {
     }
 }
 
-namespace Qd::Renderer {
-    void RenderCommand::init() {
+namespace Qd::Renderer::RenderCommand {
+    void init() {
         // TODO: Check against debug build
         glEnable(GL_DEBUG_OUTPUT);
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
@@ -52,19 +52,19 @@ namespace Qd::Renderer {
         glEnable(GL_DEPTH_TEST);
     }
 
-    void RenderCommand::setViewport(int32_t x, int32_t y, int32_t width, int32_t height) {
+    void setViewport(int32_t x, int32_t y, int32_t width, int32_t height) {
         glViewport(x, y, width, height);
     }
 
-    void RenderCommand::setClearColor(const glm::vec4 &color) {
+    void setClearColor(const glm::vec4 &color) {
         glClearColor(color.r, color.g, color.b, color.a);
     }
 
-    void RenderCommand::clear() {
+    void clear() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    void RenderCommand::draw(const VertexArray& vertexArray, int32_t count) {
+    void draw(const VertexArray& vertexArray, int32_t count) {
         glDrawElements(
                 GL_TRIANGLES,
                 count ? count : vertexArray.getCount(),
