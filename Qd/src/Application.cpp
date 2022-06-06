@@ -21,10 +21,12 @@ namespace Qd {
     Application::~Application() = default;
 
     void Application::pushLayer(std::unique_ptr<Core::Layer> layer) {
+        layer->onAttach();
         layerStack_->pushLayer(std::move(layer));
     }
 
     void Application::pushOverlay(std::unique_ptr<Core::Layer> layer) {
+        layer->onAttach();
         layerStack_->pushOverlay(std::move(layer));
     }
 

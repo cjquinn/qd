@@ -36,12 +36,6 @@ namespace Qd::Core {
 
         glfwSetWindowUserPointer(window_, &data_);
 
-        glfwSetWindowCloseCallback(window_, [](GLFWwindow* window) {
-            Data& data = *static_cast<Data*>(glfwGetWindowUserPointer(window));
-            Events::WindowClosedEvent event{};
-            data.eventCallback(event);
-        });
-
         glfwSetKeyCallback(window_, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
             Data& data = *static_cast<Data*>(glfwGetWindowUserPointer(window));
             auto keyCode = static_cast<KeyCode>(key);
@@ -73,6 +67,18 @@ namespace Qd::Core {
         glfwSetCursorPosCallback(window_, [](GLFWwindow* window, double x, double y) {
             Data& data = *static_cast<Data*>(glfwGetWindowUserPointer(window));
             Events::MouseMovedEvent event{x, y};
+            data.eventCallback(event);
+        });
+
+        glfwSetWindowCloseCallback(window_, [](GLFWwindow* window) {
+            Data& data = *static_cast<Data*>(glfwGetWindowUserPointer(window));
+            Events::WindowClosedEvent event{};
+            data.eventCallback(event);
+        });
+
+        glfwSetWindowSizeCallback(window_, [](GLFWwindow* window, int width, int height) {
+            Data& data = *static_cast<Data*>(glfwGetWindowUserPointer(window));
+            Events::WindowResizedEvent event{width, height};
             data.eventCallback(event);
         });
     }

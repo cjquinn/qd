@@ -1,10 +1,15 @@
 #pragma once
 
 #include <Qd/Core/Layer.h>
-#include <Qd/Events/Event.h>
+#include <Qd/Renderer/VertexArray.h>
+
+namespace Qd::Events {
+    class Event;
+}
 
 namespace Sandbox {
     class SandboxLayer : public Qd::Core::Layer {
+    public:
         void onAttach() override;
 
         void onDetach() override;
@@ -12,5 +17,8 @@ namespace Sandbox {
         void onEvent(Qd::Events::Event &event) override;
 
         void update() override;
+
+    private:
+        Qd::Renderer::VertexArray vertexArray_;
     };
 }

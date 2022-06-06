@@ -38,6 +38,14 @@ namespace Qd::Events {
 
         QD_EVENT_TYPE(MouseMoved)
 
+        [[nodiscard]] inline double getX() const {
+            return x_;
+        }
+
+        [[nodiscard]] inline double getY() const {
+            return y_;
+        }
+
     private:
         double x_;
         double y_;

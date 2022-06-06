@@ -123,7 +123,7 @@ namespace Qd::Core
         RightControl = 345,
         RightAlt = 346,
         RightSuper = 347,
-        Menu = 348
+        Menu = 348,
     };
 
     enum class MouseCode : int {
@@ -138,6 +138,6 @@ namespace Qd::Core
         ButtonLast = Button7,
         ButtonLeft = Button0,
         ButtonRight = Button1,
-        ButtonMiddle = Button2
+        ButtonMiddle = Button2,
     };
 }

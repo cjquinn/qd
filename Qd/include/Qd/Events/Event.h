@@ -12,6 +12,7 @@ namespace Qd::Events {
         MouseButtonReleased,
         MouseMoved,
         WindowClosed,
+        WindowResized,
     };
 
     class Event {
