@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Qd/Core/Layer.h>
+#include <Qd/Renderer/Shader.h>
 #include <Qd/Renderer/VertexArray.h>
 
 namespace Qd::Events {
@@ -19,6 +20,7 @@ namespace Sandbox {
         void update() override;
 
     private:
+        Qd::Renderer::Shader shader_;
         Qd::Renderer::VertexArray vertexArray_;
     };
 }

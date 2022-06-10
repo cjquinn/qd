@@ -3,11 +3,10 @@
 #include <glad/glad.h>
 
 namespace Qd::Renderer {
-
-    IndexBuffer::IndexBuffer(uint32_t* indices, int32_t count) {
+    IndexBuffer::IndexBuffer(uint32_t* indices, int32_t count) : count_{count} {
         glGenBuffers(1, &rendererId_);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, rendererId_);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * static_cast<uint32_t>(sizeof(uint32_t)), indices, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * static_cast<int32_t>(sizeof(uint32_t)), indices, GL_STATIC_DRAW);
     }
 
     IndexBuffer::~IndexBuffer() {

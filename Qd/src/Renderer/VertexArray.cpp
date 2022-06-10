@@ -4,6 +4,8 @@
 
 #include <glad/glad.h>
 
+#include "Qd/Core/Assert.h"
+
 #include "Renderer/Buffer.h"
 
 namespace {
@@ -16,15 +18,20 @@ GLenum getGlEnum(Qd::Renderer::ShaderType shaderType) {
 }
 
 namespace Qd::Renderer {
-    VertexArray::VertexArray() {
-        glGenVertexArrays(1, &rendererId_);
-    }
+    VertexArray::VertexArray() = default;
 
     VertexArray::~VertexArray() {
         glDeleteVertexArrays(1, &rendererId_);
     }
 
+    void VertexArray::init() {
+        glGenVertexArrays(1, &rendererId_);
+        glBindVertexArray(rendererId_);
+    }
+
     void VertexArray::bind() const {
+        QD_CORE_ASSERT(rendererId_);
+
         glBindVertexArray(rendererId_);
     }
 
@@ -32,7 +39,8 @@ namespace Qd::Renderer {
             float* vertices,
             uint32_t size,
             std::initializer_list<VertexAttribute> vertexAttributes) {
-        bind();
+        QD_CORE_ASSERT(rendererId_);
+
         vertexBuffer_.reset(new VertexBuffer{vertices, size});
 
         std::vector<VertexAttribute> layout{vertexAttributes};
@@ -60,7 +68,8 @@ namespace Qd::Renderer {
     }
 
     void VertexArray::setIndexBuffer(uint32_t* indices, int32_t count) {
-        bind();
+        QD_CORE_ASSERT(rendererId_);
+
         indexBuffer_.reset(new IndexBuffer{indices, count});
     }
 

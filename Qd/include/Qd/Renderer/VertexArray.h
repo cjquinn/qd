@@ -28,6 +28,7 @@ namespace Qd::Renderer {
         VertexArray();
         ~VertexArray();
 
+        void init();
         void bind() const;
 
         void setVertexBuffer(float* vertices, uint32_t size, std::initializer_list<VertexAttribute> vertexAttributes);
