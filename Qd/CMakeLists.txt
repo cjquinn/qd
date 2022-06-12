@@ -7,6 +7,7 @@ include(cmake/FetchContent_glm.cmake)
 include(cmake/FetchContent_spdlog.cmake)
 
 add_subdirectory(vendor/glad)
+add_subdirectory(vendor/stb_image)
 
 find_package(OpenGL REQUIRED)
 
@@ -29,6 +30,7 @@ target_sources(Qd
         include/Qd/Events/WindowEvent.h
         include/Qd/Renderer/RenderCommand.h
         include/Qd/Renderer/Shader.h
+        include/Qd/Renderer/Texture.h
         include/Qd/Renderer/VertexArray.h
     INTERFACE
         include/Qd/EntryPoint.h
@@ -47,6 +49,7 @@ target_sources(Qd
         src/Renderer/Buffer.cpp
         src/Renderer/RenderCommand.cpp
         src/Renderer/Shader.cpp
+        src/Renderer/Texture.cpp
         src/Renderer/VertexArray.cpp
 )
 
@@ -65,4 +68,5 @@ target_link_libraries(Qd
         glad::glad
         glfw
         OpenGL::GL
+        stb_image::stb_image
 )

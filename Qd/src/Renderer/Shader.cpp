@@ -59,4 +59,9 @@ namespace Qd::Renderer {
 
         glUseProgram(rendererId_);
     }
+
+    void Shader::setUniform1i(const std::string& name, int32_t value) const {
+        GLint location = glGetUniformLocation(rendererId_, name.c_str());
+        glUniform1i(location, value);
+    }
 }

@@ -14,3 +14,5 @@ target_compile_features(Qd PUBLIC cxx_std_20)
 find_package(Qd REQUIRED)
 
 target_link_libraries(Sandbox PRIVATE Qd::Qd)
+
+file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

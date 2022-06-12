@@ -2,6 +2,7 @@
 
 #include <Qd/Core/Layer.h>
 #include <Qd/Renderer/Shader.h>
+#include <Qd/Renderer/Texture.h>
 #include <Qd/Renderer/VertexArray.h>
 
 namespace Qd::Events {
@@ -21,6 +22,7 @@ namespace Sandbox {
 
     private:
         Qd::Renderer::Shader shader_;
+        Qd::Renderer::Texture texture_;
         Qd::Renderer::VertexArray vertexArray_;
     };
 }

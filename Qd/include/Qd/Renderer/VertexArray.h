@@ -32,6 +32,7 @@ namespace Qd::Renderer {
         void bind() const;
 
         void setVertexBuffer(float* vertices, uint32_t size, std::initializer_list<VertexAttribute> vertexAttributes);
+
         void setIndexBuffer(uint32_t* indices, int32_t count);
 
         [[nodiscard]] int32_t getCount() const;
