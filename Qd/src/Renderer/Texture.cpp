@@ -12,7 +12,7 @@ namespace Qd::Renderer {
         int channels{0};
 
         stbi_set_flip_vertically_on_load(true);
-        auto buffer = stbi_load(file.c_str(),&width,&height,&channels,4);
+        auto buffer = stbi_load(file.c_str(),&width,&height,&channels,0);
 
         QD_CORE_ASSERT(buffer);
 
@@ -24,7 +24,13 @@ namespace Qd::Renderer {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+        GLint internalFormat{GL_RGBA8};
+        GLenum dataFormat{GL_RGBA};
+        if (channels == 3) {
+            internalFormat = GL_RGB8;
+            dataFormat = GL_RGB;
+        }
+        glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, dataFormat, GL_UNSIGNED_BYTE, buffer);
 
         glBindTexture(GL_TEXTURE_2D, 0);
 

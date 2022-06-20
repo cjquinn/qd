@@ -18,9 +18,9 @@ namespace {
 }
 
 namespace Qd {
-    Application::Application(const std::string& name)
+    Application::Application(const std::string& name, int width, int height)
         : layerStack_{std::make_unique<Core::LayerStack>()},
-          window_{std::make_unique<Core::Window>(name, 800, 600)} {
+          window_{std::make_unique<Core::Window>(name, width, height)} {
         window_->setEventCallback(QD_BIND(onEvent));
     }
 

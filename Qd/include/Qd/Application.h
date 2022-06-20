@@ -18,7 +18,7 @@ namespace Qd {
 
     class Application {
     public:
-        explicit Application(const std::string& name);
+        explicit Application(const std::string& name, int width, int height);
         virtual ~Application();
 
         void pushLayer(std::unique_ptr<Core::Layer> layer);

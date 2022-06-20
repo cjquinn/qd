@@ -1,6 +1,7 @@
 #include "Qd/Renderer/Shader.h"
 
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "Qd/Core/Assert.h"
 #include "Qd/Core/Log.h"
@@ -63,5 +64,10 @@ namespace Qd::Renderer {
     void Shader::setUniform1i(const std::string& name, int32_t value) const {
         GLint location = glGetUniformLocation(rendererId_, name.c_str());
         glUniform1i(location, value);
+    }
+
+    void Shader::setUniformMat4(const std::string& name, const glm::mat4& value) const {
+        GLint location = glGetUniformLocation(rendererId_, name.c_str());
+        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
     }
 }

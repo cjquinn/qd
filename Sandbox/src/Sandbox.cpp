@@ -8,7 +8,7 @@
 namespace Sandbox {
     class Sandbox : public Qd::Application {
     public:
-        Sandbox() : Application("Sandbox") {
+        Sandbox() : Application("Sandbox", 800, 600) {
             pushLayer(std::make_unique<SandboxLayer>());
         }
 

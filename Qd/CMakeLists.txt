@@ -28,6 +28,7 @@ target_sources(Qd
         include/Qd/Events/KeyboardEvent.h
         include/Qd/Events/MouseEvent.h
         include/Qd/Events/WindowEvent.h
+        include/Qd/Renderer/Camera.h
         include/Qd/Renderer/RenderCommand.h
         include/Qd/Renderer/Shader.h
         include/Qd/Renderer/Texture.h
@@ -47,6 +48,7 @@ target_sources(Qd
         src/Core/Window.cpp
         src/Renderer/Buffer.h
         src/Renderer/Buffer.cpp
+        src/Renderer/Camera.cpp
         src/Renderer/RenderCommand.cpp
         src/Renderer/Shader.cpp
         src/Renderer/Texture.cpp

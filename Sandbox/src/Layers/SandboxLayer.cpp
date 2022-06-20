@@ -1,6 +1,8 @@
 #include "SandboxLayer.h"
 
+#include <Qd/Core/Base.h>
 #include <Qd/Events/Event.h>
+#include <Qd/Events/WindowEvent.h>
 #include <Qd/Renderer/RenderCommand.h>
 
 namespace Sandbox {
@@ -12,11 +14,13 @@ namespace Sandbox {
                     layout(location = 0) in vec2 a_Position;
                     layout(location = 1) in vec2 a_TexCoord;
 
+                    uniform mat4 u_ViewProjection;
+
                     out vec2 v_TexCoord;
 
                     void main()
                     {
-                        gl_Position = vec4(a_Position, 0.0, 1.0);
+                        gl_Position = u_ViewProjection * vec4(a_Position, 0.0, 1.0);
                         v_TexCoord = a_TexCoord;
                     }
                 )",
@@ -36,8 +40,10 @@ namespace Sandbox {
                 )"
         );
 
-        texture_.init("assets/textures/alien.png");
+        texture_.init("assets/textures/aliens.png");
         texture_.bind();
+
+        shader_.bind();
         shader_.setUniform1i("u_Texture", 0);
 
         vertexArray_.init();
@@ -66,7 +72,9 @@ namespace Sandbox {
     }
 
     void SandboxLayer::onEvent(Qd::Events::Event &event) {
+        Qd::Events::Dispatcher dispatcher{event};
 
+        dispatcher.dispatch<Qd::Events::WindowResizedEvent>(QD_BIND(handleWindowResized));
     }
 
     void SandboxLayer::update() {
@@ -74,7 +82,12 @@ namespace Sandbox {
         Qd::Renderer::RenderCommand::clear();
 
         shader_.bind();
+        shader_.setUniformMat4("u_ViewProjection", camera_.getViewProjection());
         vertexArray_.bind();
         Qd::Renderer::RenderCommand::draw(vertexArray_);
+    }
+
+    void SandboxLayer::handleWindowResized(Qd::Events::WindowResizedEvent &event) {
+        camera_.setProjection(static_cast<float>(event.getWidth()) / static_cast<float>(event.getHeight()));
     }
 }
