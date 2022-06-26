@@ -27,9 +27,12 @@ namespace Qd::Renderer {
     public:
         ~VertexBuffer();
 
+        void setData(void* data, uint32_t size) const;
+
     private:
         friend class VertexArray;
 
+        explicit VertexBuffer(uint32_t size);
         explicit VertexBuffer(float* vertices, uint32_t size);
 
     private:

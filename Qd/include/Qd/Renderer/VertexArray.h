@@ -15,7 +15,7 @@ namespace Qd::Renderer {
 
     struct VertexAttribute {
         VertexAttribute(ShaderType type, int32_t count, bool isNormalized = false)
-        : count{count}, isNormalized{isNormalized}, type{type} {}
+            : count{count}, isNormalized{isNormalized}, type{type} {}
 
         ShaderType type;
         int32_t count;
@@ -31,7 +31,10 @@ namespace Qd::Renderer {
         void init();
         void bind() const;
 
+        void setVertexBuffer(uint32_t size, std::initializer_list<VertexAttribute> vertexAttributes);
         void setVertexBuffer(float* vertices, uint32_t size, std::initializer_list<VertexAttribute> vertexAttributes);
+
+        void setVertexData(void* data, uint32_t size);
 
         void setIndexBuffer(uint32_t* indices, int32_t count);
 

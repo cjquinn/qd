@@ -6,6 +6,8 @@ add_executable(Sandbox)
 target_sources(Sandbox
     PRIVATE
         src/Sandbox.cpp
+        src/Layers/BatchRendererLayer.h
+        src/Layers/BatchRendererLayer.cpp
         src/Layers/SandboxLayer.h
         src/Layers/SandboxLayer.cpp
 )

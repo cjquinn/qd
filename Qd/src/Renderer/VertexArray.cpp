@@ -15,6 +15,32 @@ GLenum getGlEnum(Qd::Renderer::ShaderType shaderType) {
     };
     return kShaderTypeToGLenum.at(shaderType);
 }
+
+void setVertexLayout(std::initializer_list<Qd::Renderer::VertexAttribute> vertexAttributes) {
+    std::vector<Qd::Renderer::VertexAttribute> layout{vertexAttributes};
+
+    int32_t stride{0};
+    for (auto& vertexAttribute : layout) {
+        stride += vertexAttribute.count * static_cast<int32_t>(vertexAttribute.type);
+        vertexAttribute.offset = stride;
+    }
+
+    uint32_t index{0};
+    size_t offset{0};
+    for (const auto& vertexAttribute : layout) {
+        glEnableVertexAttribArray(index);
+        glVertexAttribPointer(
+            index,
+            vertexAttribute.count,
+            getGlEnum(vertexAttribute.type),
+            vertexAttribute.isNormalized ? GL_TRUE : GL_FALSE,
+            stride,
+            (void*) offset
+        );
+        offset += vertexAttribute.offset;
+        index++;
+    }
+}
 }
 
 namespace Qd::Renderer {
@@ -35,6 +61,13 @@ namespace Qd::Renderer {
         glBindVertexArray(rendererId_);
     }
 
+    void VertexArray::setVertexBuffer(uint32_t size, std::initializer_list<VertexAttribute> vertexAttributes) {
+        QD_CORE_ASSERT(rendererId_);
+
+        vertexBuffer_.reset(new VertexBuffer{size});
+        setVertexLayout(vertexAttributes);
+    }
+
     void VertexArray::setVertexBuffer(
             float* vertices,
             uint32_t size,
@@ -42,29 +75,11 @@ namespace Qd::Renderer {
         QD_CORE_ASSERT(rendererId_);
 
         vertexBuffer_.reset(new VertexBuffer{vertices, size});
+        setVertexLayout(vertexAttributes);
+    }
 
-        std::vector<VertexAttribute> layout{vertexAttributes};
-        int32_t stride{0};
-        for (auto& vertexAttribute : layout) {
-            stride += vertexAttribute.count * static_cast<int32_t>(vertexAttribute.type);
-            vertexAttribute.offset = stride;
-        }
-
-        uint32_t index{0};
-        size_t offset{0};
-        for (const auto& vertexAttribute : layout) {
-            glEnableVertexAttribArray(index);
-            glVertexAttribPointer(
-                    index,
-                    vertexAttribute.count,
-                    getGlEnum(vertexAttribute.type),
-                    vertexAttribute.isNormalized ? GL_TRUE : GL_FALSE,
-                    stride,
-                    (void*) offset
-            );
-            offset += vertexAttribute.offset;
-            index++;
-        }
+    void VertexArray::setVertexData(void* data, uint32_t size) {
+        vertexBuffer_->setData(data, size);
     }
 
     void VertexArray::setIndexBuffer(uint32_t* indices, int32_t count) {

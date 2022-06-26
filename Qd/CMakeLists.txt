@@ -30,6 +30,7 @@ target_sources(Qd
         include/Qd/Events/WindowEvent.h
         include/Qd/Renderer/Camera.h
         include/Qd/Renderer/RenderCommand.h
+        include/Qd/Renderer/Renderer.h
         include/Qd/Renderer/Shader.h
         include/Qd/Renderer/Texture.h
         include/Qd/Renderer/VertexArray.h
@@ -50,6 +51,7 @@ target_sources(Qd
         src/Renderer/Buffer.cpp
         src/Renderer/Camera.cpp
         src/Renderer/RenderCommand.cpp
+        src/Renderer/Renderer.cpp
         src/Renderer/Shader.cpp
         src/Renderer/Texture.cpp
         src/Renderer/VertexArray.cpp

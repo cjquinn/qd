@@ -41,7 +41,6 @@ namespace {
 
 namespace Qd::Renderer::RenderCommand {
     void init() {
-        // TODO: Check against debug build
         glEnable(GL_DEBUG_OUTPUT);
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
         glDebugMessageCallback(debugMessageCallback, nullptr);
@@ -65,6 +64,7 @@ namespace Qd::Renderer::RenderCommand {
     }
 
     void draw(const VertexArray& vertexArray, int32_t count) {
+        vertexArray.bind();
         glDrawElements(
                 GL_TRIANGLES,
                 count ? count : vertexArray.getCount(),
