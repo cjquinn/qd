@@ -1,22 +1,21 @@
 #pragma once
 
 #include <cstdint>
+#include <glm/vec4.hpp>
 #include <memory>
 
-#include <glm/vec4.hpp>
-
 namespace Qd::Renderer {
-    class VertexArray;
+class VertexArray;
 
-    namespace RenderCommand {
-        void init();
+namespace RenderCommand {
+void init();
 
-        void setViewport(int32_t x, int32_t y, int32_t width, int32_t height);
+void setViewport(int32_t x, int32_t y, int32_t width, int32_t height);
 
-        void setClearColor(const glm::vec4& color);
+void setClearColor(const glm::vec4& color);
 
-        void clear();
+void clear();
 
-        void draw(const VertexArray& vertexArray, int32_t count = 0);
-    }
-}
+void draw(const VertexArray& vertexArray, int32_t count = 0);
+}  // namespace RenderCommand
+}  // namespace Qd::Renderer

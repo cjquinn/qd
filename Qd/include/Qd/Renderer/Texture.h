@@ -4,14 +4,14 @@
 #include <string>
 
 namespace Qd::Renderer {
-    class Texture {
-    public:
-        ~Texture();
+class Texture {
+ public:
+  ~Texture();
 
-        void init(const std::string& file);
-        void bind(uint32_t slot = 0) const;
+  void init(const std::string& file);
+  void bind(uint32_t slot = 0) const;
 
-    private:
-        uint32_t rendererId_{0};
-    };
-}
+ private:
+  uint32_t rendererId_{0};
+};
+}  // namespace Qd::Renderer

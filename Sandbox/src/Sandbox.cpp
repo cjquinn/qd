@@ -1,23 +1,21 @@
-#include <memory>
-
 #include <Qd/Application.h>
 #include <Qd/EntryPoint.h>
 
+#include <memory>
+
 #include "Layers/BatchRendererLayer.h"
-#include "Layers/SandboxLayer.h"
 
 namespace Sandbox {
-    class Sandbox : public Qd::Application {
-    public:
-        Sandbox() : Application("Sandbox", 800, 600) {
-            pushLayer(std::make_unique<BatchRendererLayer>());
-//            pushLayer(std::make_unique<SandboxLayer>());
-        }
+class Sandbox : public Qd::Application {
+ public:
+  Sandbox() : Application("Sandbox", 800, 600) {
+    pushLayer(std::make_unique<BatchRendererLayer>());
+  }
 
-        ~Sandbox() override = default;
-    };
-}
+  ~Sandbox() override = default;
+};
+}  // namespace Sandbox
 
 std::unique_ptr<Qd::Application> Qd::createApplication() {
-    return std::make_unique<Sandbox::Sandbox>();
+  return std::make_unique<Sandbox::Sandbox>();
 }

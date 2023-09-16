@@ -3,7 +3,7 @@
 #include <spdlog/spdlog.h>
 
 namespace Qd::Core {
-    void initLogging();
+void initLogging();
 }
 
 // Core log macros
